@@ -1,22 +1,16 @@
 {
-    "version": 2,
-    "public": true,
-    "functions": {
-      "api/*.php": {
-        "runtime": "now-php@0.0.9"
-      }
-    },
-    "routes": [
+  "builds": [
+      { "src": "/api/index.php", "use": "vercel-php@0.3.2" },
+      { "src": "/public/**", "use": "@vercel/static" }
+  ],
+  "rewrites": [
       {
-        "src": "/assets/(.*)",
-        "headers": {
-          "cache-control": "s-maxage=604800"
-        },
-        "dest": "/assets/$1"
+          "source": "/(css|js|images)/(.*)",
+          "destination": "public/$1/$2"
       },
       {
-        "src": "/(.*)",
-        "dest": "api/index.php"
+          "source": "/(.*)",
+          "destination": "/api/index.php"
       }
-    ]
+  ]
 }
